@@ -17,7 +17,7 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     if (photo != null) {
       return new CircleAvatar(
-        backgroundImage: new MemoryImage(photo.bytes),
+        backgroundImage: new MemoryImage(photo.bytes!),
       );
     }
 

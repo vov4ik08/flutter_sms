@@ -70,7 +70,7 @@ class _ThreadsState extends State<Threads> with TickerProviderStateMixin {
     var thread = _threads!.singleWhere((thread) {
       return thread.id == sms.threadId;
     }, orElse: () {
-      var thread = new SmsThread(sms.threadId);
+      var thread = new SmsThread(sms.threadId!);
       _threads!.insert(0, thread);
       return thread;
     });
@@ -108,9 +108,9 @@ class _ThreadsState extends State<Threads> with TickerProviderStateMixin {
 
   void _onSmsDelivered(SmsMessage sms) async {
     final contacts = new ContactQuery();
-    Contact contact = await contacts.queryContact(sms.address);
+    Contact? contact = await contacts.queryContact(sms.address!);
     final snackBar = new SnackBar(
-        content: new Text('Message to ${contact.fullName} delivered'));
+        content: new Text('Message to ${contact!.fullName} delivered'));
     Scaffold.of(context).showSnackBar(snackBar);
   }
 }

@@ -92,9 +92,9 @@ class FormSend extends StatelessWidget {
 
   void _notifyDelivery(SmsMessage message, BuildContext context) async {
     final contacts = new ContactQuery();
-    Contact contact = await contacts.queryContact(message.address);
+    Contact? contact = await contacts.queryContact(message.address!);
     final snackBar = new SnackBar(
-        content: new Text('Message to ${contact.fullName} delivered'));
+        content: new Text('Message to ${contact!.fullName} delivered'));
     Scaffold.of(context).showSnackBar(snackBar);
   }
 }

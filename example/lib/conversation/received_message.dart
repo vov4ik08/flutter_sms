@@ -36,7 +36,7 @@ class ReceivedMessage extends Message {
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      new Text(message!.body.trim()),
+                      new Text(message!.body!.trim()),
                       new Align(
                         child: new Padding(
                           padding: new EdgeInsets.only(top: 5.0),

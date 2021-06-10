@@ -23,7 +23,7 @@ class Thread extends StatelessWidget {
       leading: new Avatar(thread.contact.thumbnail, thread.contact.fullName),
       title: new Text(thread.contact.fullName ?? thread.contact.address),
       subtitle: new Text(
-        thread.messages.first.body.trim(),
+        thread.messages.first.body!.trim(),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),

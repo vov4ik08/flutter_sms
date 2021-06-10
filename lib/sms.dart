@@ -220,7 +220,7 @@ class SmsThread {
   /// Set contact through contact query
   Future findContact() async {
     ContactQuery query = new ContactQuery();
-    Contact contact = await query.queryContact(this._address);
+    Contact? contact = await query.queryContact(this._address!);
     if (contact != null) {
       this._contact = contact;
     }
