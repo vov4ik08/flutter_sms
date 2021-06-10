@@ -11,19 +11,19 @@ abstract class Message extends StatelessWidget {
       {this.compactMode = false, this.backgroundColor, this.arrowDirection})
       : super();
 
-  final SmsMessage message;
-  final bool compactMode;
-  final Color backgroundColor;
-  final ArrowDirection arrowDirection;
+  final SmsMessage? message;
+  late final  bool compactMode;
+  final Color? backgroundColor;
+  final ArrowDirection? arrowDirection;
 
   bool get sent =>
-      message.kind == SmsMessageKind.Sent ||
-      message.state == SmsMessageState.Sent ||
-      message.state == SmsMessageState.Sending ||
-      message.state == SmsMessageState.Delivered;
+      message!.kind == SmsMessageKind.Sent ||
+      message!.state == SmsMessageState.Sent ||
+      message!.state == SmsMessageState.Sending ||
+      message!.state == SmsMessageState.Delivered;
 
   get time {
-    return new TimeOfDay(hour: message.date.hour, minute: message.date.minute);
+    return new TimeOfDay(hour: message!.date.hour, minute: message!.date.minute);
   }
 
   createAvatar(Photo thumbnail, String alternativeText) {
@@ -41,7 +41,7 @@ abstract class Message extends StatelessWidget {
 
     return new CustomPaint(
       painter: new ArrowPainter(
-          color: this.backgroundColor, direction: this.arrowDirection),
+          color: this.backgroundColor!, direction: this.arrowDirection!),
     );
   }
 }

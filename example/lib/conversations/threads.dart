@@ -12,15 +12,15 @@ class Threads extends StatefulWidget {
 
 class _ThreadsState extends State<Threads> with TickerProviderStateMixin {
   bool _loading = true;
-  List<SmsThread> _threads;
-  UserProfile _userProfile;
+  List<SmsThread>? _threads;
+  UserProfile? _userProfile;
   final SmsQuery _query = new SmsQuery();
   final SmsReceiver _receiver = new SmsReceiver();
   final UserProfileProvider _userProfileProvider = new UserProfileProvider();
   final SmsSender _smsSender = new SmsSender();
 
   // Animation
-  AnimationController opacityController;
+  AnimationController? opacityController;
 
   @override
   void initState() {
@@ -56,32 +56,32 @@ class _ThreadsState extends State<Threads> with TickerProviderStateMixin {
       );
     } else {
       return new FadeTransition(
-        opacity: opacityController,
+        opacity: opacityController!,
         child: new ListView.builder(
-            itemCount: _threads.length,
+            itemCount: _threads!.length,
             itemBuilder: (context, index) {
-              return new Thread(_threads[index], _userProfile);
+              return new Thread(_threads![index], _userProfile!);
             }),
       );
     }
   }
 
   void _onSmsReceived(SmsMessage sms) async {
-    var thread = _threads.singleWhere((thread) {
+    var thread = _threads!.singleWhere((thread) {
       return thread.id == sms.threadId;
     }, orElse: () {
       var thread = new SmsThread(sms.threadId);
-      _threads.insert(0, thread);
+      _threads!.insert(0, thread);
       return thread;
     });
 
     thread.addNewMessage(sms);
     await thread.findContact();
 
-    int index = _threads.indexOf(thread);
+    int index = _threads!.indexOf(thread);
     if (index != 0) {
-      _threads.removeAt(index);
-      _threads.insert(0, thread);
+      _threads!.removeAt(index);
+      _threads!.insert(0, thread);
     }
 
     setState(() {});
@@ -101,7 +101,7 @@ class _ThreadsState extends State<Threads> with TickerProviderStateMixin {
     if (_threads != null && _userProfile != null) {
       setState(() {
         _loading = false;
-        opacityController.animateTo(1.0, curve: Curves.easeIn);
+        opacityController!.animateTo(1.0, curve: Curves.easeIn);
       });
     }
   }

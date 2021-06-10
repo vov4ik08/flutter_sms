@@ -9,8 +9,8 @@ typedef void MessageSentCallback(SmsMessage message);
 class FormSend extends StatelessWidget {
   FormSend(this.thread, {this.onMessageSent});
 
-  final SmsThread thread;
-  final MessageSentCallback onMessageSent;
+  final SmsThread? thread;
+  final MessageSentCallback? onMessageSent;
   final TextEditingController _textField = new TextEditingController();
   final SmsSender _sender = new SmsSender();
 
@@ -36,19 +36,19 @@ class FormSend extends StatelessWidget {
           ),
           new IconButton(
               icon: new StreamBuilder<SimCard>(
-                  stream: simCards.onSimCardChanged,
+                  stream: simCards!.onSimCardChanged,
                   initialData: simCards.selectedSimCard,
                   builder: (context, snapshot) {
                     return new Row(
                       children: [
                         new Icon(
                           Icons.sim_card,
-                          color: snapshot.data.state == SimCardState.Ready
+                          color: snapshot.data!.state == SimCardState.Ready
                               ? Colors.blue
                               : Colors.grey
                         ),
-                        new Text(snapshot.data.slot.toString(),
-                          style: new TextStyle(color: snapshot.data.state == SimCardState.Ready
+                        new Text(snapshot.data!.slot.toString(),
+                          style: new TextStyle(color: snapshot.data!.state == SimCardState.Ready
                               ? Colors.black
                               : Colors.grey
                           ),
@@ -57,7 +57,7 @@ class FormSend extends StatelessWidget {
                     );
                   }),
               onPressed: () {
-                SimCardsBlocProvider.of(context).toggleSelectedSim();
+                SimCardsBlocProvider.of(context)!.toggleSelectedSim();
               }),
           new IconButton(
             icon: new Icon(Icons.send),
@@ -73,7 +73,7 @@ class FormSend extends StatelessWidget {
 
   void _sendMessage(BuildContext context) async {
     SmsMessage message =
-        new SmsMessage(thread.address, _textField.text, threadId: thread.id);
+        new SmsMessage(thread!.address, _textField.text, threadId: thread!.id);
     message.onStateChanged.listen((SmsMessageState state) {
       if (state == SmsMessageState.Delivered) {
         print('Message delivered to ${message.address}');
@@ -84,10 +84,10 @@ class FormSend extends StatelessWidget {
       }
     });
 
-    final simCard = SimCardsBlocProvider.of(context).selectedSimCard;
+    final simCard = SimCardsBlocProvider.of(context)!.selectedSimCard;
     await _sender.sendSms(message, simCard: simCard);
     _textField.clear();
-    onMessageSent(message);
+    onMessageSent!(message);
   }
 
   void _notifyDelivery(SmsMessage message, BuildContext context) async {

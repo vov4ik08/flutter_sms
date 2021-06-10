@@ -9,7 +9,7 @@ class SentMessage extends Message {
   SentMessage(SmsMessage message, bool compactMode, this.userProfile)
       : super(message,
             compactMode: compactMode,
-            backgroundColor: Colors.lightBlue[100],
+            backgroundColor: Colors.lightBlue[100]!,
             arrowDirection: ArrowDirection.Right);
 
   final UserProfile userProfile;
@@ -27,7 +27,7 @@ class SentMessage extends Message {
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      new Text(message.body.trim()),
+                      new Text(message!.body.trim()),
                       new Align(
                         child: new Padding(
                           padding: new EdgeInsets.only(top: 5.0),

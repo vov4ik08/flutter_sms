@@ -10,7 +10,7 @@ class ReceivedMessage extends Message {
   ReceivedMessage(SmsMessage message, bool compactMode, this.contact)
       : super(message,
             compactMode: compactMode,
-            backgroundColor: Colors.grey[300],
+            backgroundColor: Colors.grey[300]!,
             arrowDirection: ArrowDirection.Left);
 
   final Contact contact;
@@ -36,7 +36,7 @@ class ReceivedMessage extends Message {
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      new Text(message.body.trim()),
+                      new Text(message!.body.trim()),
                       new Align(
                         child: new Padding(
                           padding: new EdgeInsets.only(top: 5.0),
